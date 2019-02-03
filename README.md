@@ -56,6 +56,30 @@
 	
 ## （四）实验数据及说明
 
+[各区域热门商品测试数据](https://sdfskdfk)
+
+
+* product（商品）表：
+
+列名 | 描述 | 数据类型 | 空/非空约束 | 约束条件
+---|---|---|---|---
+product_id|商品号|varchar(18)|Not null|
+product_name|商品名称|varchar(20)|Not null|
+marque|商品型号|varchar(10)|Not null|
+barcode|仓库条码|varchar|Not null|
+price|商品价格|double|Not null|
+brand_id|商品品牌|varchar(8)|Not null|
+market_price|市场价格|double|Not null|
+stock|库存|int|Not null|
+status|状态|int|Not null|
+
+* area_info（地区信息）表
+
+
+* user_click_log（用户点击信息）表
+
+
+* area_hot_product（区域热门商品）表
 
 ## （五）技术实现
 
