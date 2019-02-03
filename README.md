@@ -61,25 +61,49 @@
 
 * product（商品）表：
 
-列名 | 描述 | 数据类型 | 空/非空约束 | 约束条件
----|---|---|---|---
-product_id|商品号|varchar(18)|Not null|
-product_name|商品名称|varchar(20)|Not null|
-marque|商品型号|varchar(10)|Not null|
-barcode|仓库条码|varchar|Not null|
-price|商品价格|double|Not null|
-brand_id|商品品牌|varchar(8)|Not null|
-market_price|市场价格|double|Not null|
-stock|库存|int|Not null|
-status|状态|int|Not null|
+	列名 | 描述 | 数据类型 | 空/非空约束 | 约束条件
+	---|---|---|---|---
+	product_id|商品号|varchar(18)|Not null|
+	product_name|商品名称|varchar(20)|Not null|
+	marque|商品型号|varchar(10)|Not null|
+	barcode|仓库条码|varchar|Not null|
+	price|商品价格|double|Not null|
+	brand_id|商品品牌|varchar(8)|Not null|
+	market_price|市场价格|double|Not null|
+	stock|库存|int|Not null|
+	status|状态|int|Not null|
+	---|---
+	补充说明|status: 下架-1，上架0，预售1
 
 * area_info（地区信息）表
 
+	列名 | 描述 | 数据类型 | 空/非空约束 | 约束条件
+	---|---|---|---|---
+	area_id|地区编号|varchar(18)|Not null|
+	area_name|地区名称|varchar(20)|Not null|
 
 * user_click_log（用户点击信息）表
 
+	列名 | 描述 | 数据类型 | 空/非空约束 | 约束条件
+	---|---|---|---|---
+	user_id|用户ID|varchar(18)|Not null|
+	user_ip|用户IP|varchar(20)|Not null|
+	url|用户点击 URL|varchar(200)||
+	click_time|用户点击时间|varchar(40)||
+	action_type|动作名称|varchar(40)||
+	area_id|地区ID|varchar(40)||
+	---|---
+	补充说明|action_type: 1 收藏，2 加购物车，3 购买  area_id:已经通过IP地址，解析出了区域信息
 
 * area_hot_product（区域热门商品）表
+
+列名 | 描述 | 数据类型 | 空/非空约束 | 约束条件
+---|---|---|---|---
+area_id|地区ID|varchar(18)|Not null|
+area_name|地区名称|varchar(20)|Not null|
+product_id|商品ID|varchar(200)|
+product_name|商品名称|varchar(40)|
+pv|访问量|BIGINT||
 
 ## （五）技术实现
 
