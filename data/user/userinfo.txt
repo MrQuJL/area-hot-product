@@ -1,4 +1,0 @@
-1,tom,male,19861225,beijing,beijing,it,1,20,1,shangdi,18601076027,1391054855@qq.com
-2,jerry,male,19851225,beijing,beijing,it,1,25,1,shangdi,18601076028,1391054856@qq.com
-3,jack,male,19871225,shandong,jinan,is,1,27,2,qingdao,18601076029,1391054857@qq.com
-4,cherry,female,19881225,heilongjiang,haerbin,is,1,28,1,shangdi,18601076028,1391054859@qq.com
