@@ -144,7 +144,7 @@
 		
 		2. 导入数据：把握原则：能不导入数据，就不要导入数据（外部表）
 	
-		```
+		```SQL
 		# 创建地区表：
 		create external table area
 		(area_id string,area_name string)
@@ -152,15 +152,17 @@
 		location '/input/project04/area';
 		```
 		
-		```
+		```SQL
 		# 创建商品表
 		create external table product
-		(product_id string,product_name string,marque string,barcode string, price double,brand_id string,market_price double,stock int,status int)
+		(product_id string,product_name string,
+		marque string,barcode string, price double,
+		brand_id string,market_price double,stock int,status int)
 		row format delimited fields terminated by ','
 		location '/input/project04/product';
 		```
 		
-		```
+		```SQL
 		# 创建一个临时表，用于保存用户点击的初始日志
 		create external table clicklogTemp
 		(user_id string,user_ip string,url string,click_time string,action_type string,area_id string)
@@ -168,33 +170,33 @@
 		location '/cleandata/project04';
 		```
 	
-		```
+		```SQL
 		# 创建用户点击日志表（注意：需要从上面的临时表中解析出product_id）
 		create external table clicklog
 		(user_id string,user_ip string,product_id string,click_time string,action_type string,area_id string)
 		row format delimited fields terminated by ',';
 		```
 	
-		```
+		```SQL
 		# 导入数据
-		insert into table clicklog select user_id,user_ip,substring(url,instr(url,"=")+1),click_time,action_type,area_id from clicklogTemp;
+		insert into table clicklog
+		select user_id,user_ip,substring(url,instr(url,"=")+1),
+		click_time,action_type,area_id from clicklogTemp;
 		```
 	
-		```
+		```SQL
 		## 查询各地区商品热度
 		select a.area_id,b.area_name,a.product_id,c.product_name,count(a.product_id)  
 		from clicklog a join area b on a.area_id = b.area_id join product c on a.product_id = c.product_id  
 		group by a.area_id,b.area_name,a.product_id,c.product_name;
 		```
-	
-		```
-		注意：在上面的例子中，我们建立一张临时表，然后从临时表中解析出productid
-		也可以直接使用hive的函数：parse_url进行解析，如下：
-		parse_url(a.url,'QUERY','productid')
-		```
 		
-		```
-		这样就可以不用创建临时表来保存中间状态的结果，修改后的Hive SQL如下：
+		> 注意：在上面的例子中，我们建立一张临时表，然后从临时表中解析出productid
+		> 也可以直接使用hive的函数：parse_url进行解析，如下：
+		> parse_url(a.url,'QUERY','productid')
+		
+		```SQL
+		# 这样就可以不用创建临时表来保存中间状态的结果，修改后的Hive SQL如下：
 		select a.area_id,b.area_name,parse_url(a.url,'QUERY','productid'),c.product_name,count(parse_url(a.url,'QUERY','productid'))  
 		from clicklogtemp a join area b on a.area_id = b.area_id join product c on parse_url(a.url,'QUERY','productid') = c.product_id  
 		group by a.area_id,b.area_name,parse_url(a.url,'QUERY','productid'),c.product_name;
