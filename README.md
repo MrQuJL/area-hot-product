@@ -126,13 +126,13 @@
 
 	* 实现方式一：使用 MapReduce 程序进行数据的清洗
 	
-		* [源文件及 pom 文件](https://github.com/MrQuJL/area-hot-product/tree/master/01_etl/src)
+		* [源文件及 pom 文件](https://github.com/MrQuJL/area-hot-product/tree/master/02_clean/mapreduce)
 		
 		* 打成 jar 包，提交到 yarn 上运行：hadoop jar clean-0.0.1-SNAPSHOT.jar clean/CleanDataMain /flume/20190204/events-.1549261170696 /output/190204
 	
 	* 实现方式二：使用 Spark 程序进行数据的清洗
 	
-		* [源文件及 pom 文件]()
+		* [源文件及 pom 文件](https://github.com/MrQuJL/area-hot-product/tree/master/02_clean/spark)
 		
 		* 打成 jar 包，提交到 spark 上运行:bin/spark-submit --class clean.CleanData --master spark://qujianlei:7077 ~/jars/people-0.0.1-SNAPSHOT.jar hdfs://qujianlei:9000/flume/20190204/events-.1549261170696 hdfs://qujianlei:9000/testOutput/
 	
