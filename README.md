@@ -146,6 +146,7 @@
 	
 		```SQL
 		# 创建地区表：
+		
 		create external table area
 		(area_id string,area_name string)
 		row format delimited fields terminated by ','
@@ -154,6 +155,7 @@
 		
 		```SQL
 		# 创建商品表
+		
 		create external table product
 		(product_id string,product_name string,
 		marque string,barcode string, price double,
@@ -164,6 +166,7 @@
 		
 		```SQL
 		# 创建一个临时表，用于保存用户点击的初始日志
+		
 		create external table clicklogTemp
 		(user_id string,user_ip string,url string,click_time string,action_type string,area_id string)
 		row format delimited fields terminated by ','
@@ -172,6 +175,7 @@
 	
 		```SQL
 		# 创建用户点击日志表（注意：需要从上面的临时表中解析出product_id）
+		
 		create external table clicklog
 		(user_id string,user_ip string,product_id string,click_time string,action_type string,area_id string)
 		row format delimited fields terminated by ',';
@@ -179,6 +183,7 @@
 	
 		```SQL
 		# 导入数据
+		
 		insert into table clicklog
 		select user_id,user_ip,substring(url,instr(url,"=")+1),
 		click_time,action_type,area_id from clicklogTemp;
@@ -186,6 +191,7 @@
 	
 		```SQL
 		## 查询各地区商品热度
+		
 		select a.area_id,b.area_name,a.product_id,c.product_name,count(a.product_id)  
 		from clicklog a join area b on a.area_id = b.area_id join product c on a.product_id = c.product_id  
 		group by a.area_id,b.area_name,a.product_id,c.product_name;
@@ -197,6 +203,7 @@
 		
 		```SQL
 		# 这样就可以不用创建临时表来保存中间状态的结果，修改后的Hive SQL如下：
+		
 		select a.area_id,b.area_name,parse_url(a.url,'QUERY','productid'),
 		c.product_name,count(parse_url(a.url,'QUERY','productid'))  
 		from clicklogtemp a join area b on a.area_id = b.area_id 
@@ -206,9 +213,9 @@
 		
 	* 方式二：使用 Spark SQL 进行统计
 		
-		
+		[源码及 pom 文件]()
 
-
+		提交到spark集群上运行：bin/spark-submit --class hot.HotProductByArea --master spark://qujianlei:7077 ~/jars/people-0.0.1-SNAPSHOT.jar hdfs://qujianlei:9000/input/area/areainfo.txt hdfs://qujianlei:9000/input/product/productinfo.txt hdfs://qujianlei:9000/output/190204/part-r-00000 hdfs://qujianlei:9000/output/analysis
 
 
 
