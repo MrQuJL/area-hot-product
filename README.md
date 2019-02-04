@@ -56,8 +56,7 @@
 	
 ## （四）实验数据及说明
 
-[各区域热门商品测试数据](https://sdfskdfk)
-
+[各区域热门商品测试数据](https://github.com/MrQuJL/area-hot-product/tree/master/data)
 
 * product（商品）表：
 
@@ -106,6 +105,30 @@
 	pv|访问量|BIGINT||
 
 ## （五）技术实现
+
+1. 使用Flume采集用户点击日志
+	
+	[Flume 配置文件](http://xxxx)
+	> 监听的目录为: /root/log0204
+	> sink 的路径为：hdfs://qujianlei:9000/flume/%Y%m%d
+
+	* 启动 Flume agent，在 Flume 的根目录下执行命令：bin/flume-ng agent -n a4 -f myagent/a4.conf -c conf -Dflume.root.logger=INFO,console
+	
+	> 注：myagent 目录需要事先创建，并且把 a4.conf 配置文件放入。
+	
+	* 向 /root/log0204 目录里放入[用户点击日志文件](https://github.com/MrQuJL/area-hot-product/tree/master/data/clicklog)
+	
+	* Flume 会将 /root/log0204 目录下的文件采集到 hdfs://qujianlei:9000/flume/ 目录下
+	
+2. 数据的清洗
+
+
+
+3. 各区域热门商品热度统计：基于 Hive 和 Spark SQL
+
+
+
+
 
 
 
