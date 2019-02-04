@@ -213,7 +213,7 @@
 		
 	* 方式二：使用 Spark SQL 进行统计
 		
-		[源码及 pom 文件]()
+		[源码及 pom 文件](https://github.com/MrQuJL/area-hot-product/tree/master/03_analysis/spark_sql)
 
 		提交到spark集群上运行：bin/spark-submit --class hot.HotProductByArea --master spark://qujianlei:7077 ~/jars/people-0.0.1-SNAPSHOT.jar hdfs://qujianlei:9000/input/area/areainfo.txt hdfs://qujianlei:9000/input/product/productinfo.txt hdfs://qujianlei:9000/output/190204/part-r-00000 hdfs://qujianlei:9000/output/analysis
 
