@@ -197,8 +197,10 @@
 		
 		```SQL
 		# 这样就可以不用创建临时表来保存中间状态的结果，修改后的Hive SQL如下：
-		select a.area_id,b.area_name,parse_url(a.url,'QUERY','productid'),c.product_name,count(parse_url(a.url,'QUERY','productid'))  
-		from clicklogtemp a join area b on a.area_id = b.area_id join product c on parse_url(a.url,'QUERY','productid') = c.product_id  
+		select a.area_id,b.area_name,parse_url(a.url,'QUERY','productid'),
+		c.product_name,count(parse_url(a.url,'QUERY','productid'))  
+		from clicklogtemp a join area b on a.area_id = b.area_id 
+		join product c on parse_url(a.url,'QUERY','productid') = c.product_id  
 		group by a.area_id,b.area_name,parse_url(a.url,'QUERY','productid'),c.product_name;
 		```
 		
