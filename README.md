@@ -108,13 +108,9 @@
 
 1. 使用Flume采集用户点击日志
 	
-	[Flume 配置文件](http://xxxx)
-	> 监听的目录为: /root/log0204
-	> sink 的路径为：hdfs://qujianlei:9000/flume/%Y%m%d
+	[Flume 配置文件](https://github.com/MrQuJL/area-hot-product/tree/master/01_etl)
 
 	* 启动 Flume agent，在 Flume 的根目录下执行命令：bin/flume-ng agent -n a4 -f myagent/a4.conf -c conf -Dflume.root.logger=INFO,console
-	
-	> 注：myagent 目录需要事先创建，并且把 a4.conf 配置文件放入。
 	
 	* 向 /root/log0204 目录里放入[用户点击日志文件](https://github.com/MrQuJL/area-hot-product/tree/master/data/clicklog)
 	
@@ -122,8 +118,21 @@
 	
 2. 数据的清洗
 
+	* 需要将用户点击日志里面对于商品的点击识别出来
+	
+	* 过滤不满足6个字段的数据
+	
+	* 过滤URL为空的数据，即：过滤出包含http开头的日志记录
 
-
+	* 实现方式一：使用 MapReduce 程序进行数据的清洗
+	
+		* [源文件及 pom 文件](http://)
+		
+		* 打成 jar 包，提交到 yarn 上运行：hadoop jar clean-0.0.1-SNAPSHOT.jar clean/CleanDataMain /flume/20190204/events-.1549261170696 /output/190204
+	
+	* 实现方式二：使用 Spark 程序进行数据的清洗
+	
+	
 3. 各区域热门商品热度统计：基于 Hive 和 Spark SQL
 
 
